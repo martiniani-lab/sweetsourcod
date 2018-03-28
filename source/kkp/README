@@ -1,0 +1,47 @@
+-- Description
+
+This package contains implementations of linear time algorithms computing
+the LZ77 factorization (also known as LZ77 parsing) from the paper
+
+  Juha Karkkainen, Dominik Kempa and Simon J. Puglisi,
+  Linear Time Lempel-Ziv Factorization: Simple, Fast, Small.
+  In Proc. CPM 2013, LNCS vol. 7922, pp. 189-200. Springer 2013.
+
+Implemented algorithms:
+
+  KKP3  - uses 13n bytes of space (assuming 32-bit integers and byte alphabet),
+          This is the fastest algorithm if the input text is not highly
+          repetitive.
+  KKP2  - uses 9n bytes of space. This is currently the most space efficient
+          linear time algorithm for LZ77 factorization. It is slightly slower
+          than KKP3 for inputs exhibiting very low repetition degree (i.e. large
+          number of phrases in the output).
+  KKP1s - a version of KKP2 that streams the suffix array from the disk. If
+          the time for reading the suffix array is included in the total
+          runtime, this algorithm is the fastest.
+
+Given space requirements include the input text of n bytes but exclude the
+output factorization.
+
+
+-- Terms of use
+
+If you use this code for experiments in a research paper, please cite the
+paper mentioned above and publish the URL from which you downloaded the code.
+
+
+-- Content
+
+The implementation of parsing algorithms is contained in the algorithm/
+directory. It consists of the following files:
+
+  kkp.h         -- the main header file, only this file needs to be included
+                   to use the factorization algorithms,
+  kkp.cpp       -- implementation of the main factorizing functions,
+  SA_streamer.h -- a class that allows scanning a file with very little space
+
+See individual files for more details. A typical use of parsing functions
+is demonstrated in the examples/ directory.
+
+
+Helsinki, June 2013.
