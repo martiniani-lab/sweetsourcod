@@ -143,6 +143,14 @@ cxx_modules = [
               extra_link_args=["-std=c++11"],
               language="c++", depends=depends_all,
               ),
+Extension("sweetsourcod.hilbert",
+              ["sweetsourcod/hilbert.cxx"] + include_sources_all,
+              include_dirs=include_dirs,
+              extra_compile_args=extra_compile_args,
+              libraries=['m', 'gsl', 'gslcblas'],
+              extra_link_args=["-std=c++11"],
+              language="c++", depends=depends_all,
+              ),
 ]
 
 setup(
