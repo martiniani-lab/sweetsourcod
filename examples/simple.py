@@ -5,13 +5,14 @@ from sweetsourcod import lempel_ziv_complexity, get_hilbert_mask
 
 """
 simple.py: A simple example on how to use sweetsourcod
+"""
 
 __author__ = "Stefano Martiniani"
 __copyright__ = "Copyright 2018, sweetsourcod"
 __license__ = "GPL"
 __maintainer__ = "Stefano Martiniani"
 __email__ = "sm7683@nyu.edu"
-"""
+
 
 @jit(nopython=True)
 def mask_array(lattice, mask):
