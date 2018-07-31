@@ -4,9 +4,10 @@ from numba import jit
 from sweetsourcod.lempel_ziv import lempel_ziv_complexity
 from sweetsourcod.hilbert import get_hilbert_mask
 from sweetsourcod.zipper_compress import get_comp_size_bytes
+from sweetsourcod.block_entropy import block_entropy
 
 """
-simple.py: A simple example on how to use sweetsourcod
+ssimple.py: A simple example on how to use sweetsourcod
 """
 
 __author__ = "Stefano Martiniani"
@@ -62,5 +63,7 @@ if __name__ == "__main__":
     # or the length of the encoding obtained by a commercial algorithm, e.g. deflate
     defl_enc, _, _ = get_comp_size_bytes(image_hilbert, complevel='HIGHEST_PROTOCOL', algorithm='deflate')
     h_defl = 8 * defl_enc / image_hilbert.size
+    # or the block entropy with block size 6 (computed as be(7) - be(6))
+    h_be = block_entropy(image_hilbert, blocksize=6)
 
-    print("h_lz77: {}, h_lz78: {}, h_deflate: {}".format(h_lz77, h_lz78, h_defl))
+    print("h_lz77: {}, h_lz78: {}, h_deflate: {}, h_be: {}".format(h_lz77, h_lz78, h_defl, h_be))
