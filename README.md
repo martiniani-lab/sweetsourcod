@@ -4,7 +4,7 @@
 The sweet source coding library
 ----------------------------------------------------------------------
 
-This library is a collection of methods to estimate the entropy of integer sequences by data compression (source coding).
+This library is a collection of methods to estimate the entropy of sequences by data compression (source coding).
 
 An example of the use of this library can be found in
 
