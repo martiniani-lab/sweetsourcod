@@ -1,14 +1,14 @@
-**SweetSourCod**
-=====================================================================
+# SweetSourCod
 
-The sweet source coding library
-----------------------------------------------------------------------
+## The sweet source coding library
 
 This library is a collection of methods to estimate the entropy of sequences by data compression (source coding).
 
 An example of the use of this library can be found in
 
 S. Martiniani, P. Chaikin, D. Levine, "Quantifying hidden order out of equilibrium", [arXiv preprint: 1708.04993](https://arxiv.org/abs/1708.04993)
+
+### Description
 
 The library implements/wraps a number of algorithms and utilities:
 
@@ -29,3 +29,11 @@ The library implements/wraps a number of algorithms and utilities:
 - *run-length encoding*
 
 - *Hilbert curve*, Hilbert-Peano space filling curve for optimal compression of higher dimensional sequences.
+
+### Installation
+
+You can install the library in place by running
+
+```shell
+python setup.py build_ext -i
+```
