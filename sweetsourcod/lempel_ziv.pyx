@@ -1,7 +1,5 @@
 # distutils: language = c++
 
-import numpy as np
-
 cpdef lempel_ziv_complexity(lattice, version='lz77'):
     """
     lattice: array of ints
