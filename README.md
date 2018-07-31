@@ -14,7 +14,7 @@ The library implements/wraps a number of algorithms and utilities:
 
 - *LZ77*, Lempel-Ziv 77 pattern matching code. Wraps the [https://www.cs.helsinki.fi/group/pads/lz77.html](kkp2) performing LZ77 factorization in O(n).
 
-- *LZ78*, Lempel-Ziv incremental parsing rule.
+- *LZ78*, Lempel-Ziv 78 incremental parsing rule.
 
 - *Block Entropy*, Shannon entropy for blocks of a given size.
 
