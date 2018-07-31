@@ -12,7 +12,7 @@ S. Martiniani, P. Chaikin, D. Levine, "Quantifying hidden order out of equilibri
 
 The library implements/wraps a number of algorithms and utilities:
 
-- *LZ77*, Lempel-Ziv 77 pattern matching code. Wraps the [kkp2](https://www.cs.helsinki.fi/group/pads/lz77.html) performing LZ77 factorization in O(n).
+- *LZ77*, Lempel-Ziv 77 pattern matching code. Wraps the [kkp2](https://www.cs.helsinki.fi/group/pads/lz77.html) algorithm performing LZ77 factorization in O(n).
 
 - *LZ78*, Lempel-Ziv 78 incremental parsing rule.
 
