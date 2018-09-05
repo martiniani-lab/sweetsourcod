@@ -13,6 +13,7 @@ zstd = "*"
 brotli = "*"
 zopfli = "*"
 "backports.lzma" = "*"
+cython = "*"
 
 [requires]
 python_version = "2.7"

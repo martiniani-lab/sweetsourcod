@@ -1,8 +1,10 @@
 import os
 import sys
 import subprocess
-
-from numpy.distutils.core import setup
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
 from numpy.distutils.core import Extension
 import argparse
 import numpy as np
@@ -10,7 +12,6 @@ import numpy as np
 ## Numpy header files
 numpy_lib = os.path.split(np.__file__)[0]
 numpy_include = os.path.join(numpy_lib, 'core/include')
-
 #
 # Make the git revision visible.  Most of this is copied from scipy
 #
@@ -90,6 +91,7 @@ setup(name='sweetsourcod',
       author='Stefano Martiniani',
       description="sweetsourcod: The `sweet source coding' library implements universal lossless coding (data compression)"
                   "algorithms, with a particular focus on estimating complexity measures and entropies of generic procsses",
+      install_requires=["numpy", "cython", "numba", "zstd", "brotli", "zopfli", "backports.lzma"],
       packages=["sweetsourcod"
                 ],
       )
