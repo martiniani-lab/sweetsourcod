@@ -2,7 +2,10 @@ from __future__ import division
 import numpy as np
 import zlib
 import bz2
-import lzma
+try:
+    import lzma
+except ImportError:
+    from backports import lzma
 import zstd
 import brotli
 import zopfli.zlib
