@@ -31,11 +31,11 @@ def get_entropy_rate(c, nsites, a=2, method='lz77'):
     """
     if method == 'lz77':
         h = (c * np.log2(c) + 2 * c * np.log2(nsites / c)) / nsites
+        h *= np.log2(nsites) / (np.log2(nsites) + a * np.log2(np.log2(nsites)))
     elif method == 'lz78':
         h = c * (1. + np.log2(c)) / nsites
     else:
         raise NotImplementedError
-    h *= np.log2(nsites) / (np.log2(nsites) + a * np.log2(np.log2(nsites)))
     return h
 
 
