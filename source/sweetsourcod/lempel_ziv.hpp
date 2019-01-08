@@ -22,9 +22,11 @@ namespace ssc
 template<class T=long long>
 std::string int_vector_to_string(const std::vector<T>& v){
     std::string ss;
+    ss.reserve(v.size());
     for (const auto& x: v){
         if (x < 0) {throw std::runtime_error("int_vector_to_string only accepts sequences of positive values");}
-        ss += std::to_string(static_cast<long long>(x));
+        if (x > 254) {throw std::runtime_error("x>254, exceeded ascii table of printable numbers");}
+        ss.push_back(static_cast<int>(x+1));
     }
     return ss;
 }
