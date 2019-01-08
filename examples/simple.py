@@ -22,7 +22,7 @@ def mask_array(lattice, mask):
     return np.array([lattice[i] for i in mask])
 
 
-def get_entropy_rate(c, nsites, a=2, method='lz77'):
+def get_entropy_rate(c, nsites, a=2, alphabetsize=2, method='lz77'):
     """
     :param c: number of longest previous factors (lz77) or unique words (lz78)  
     :param a: convergence rate parameter, need be <= 2
@@ -31,11 +31,11 @@ def get_entropy_rate(c, nsites, a=2, method='lz77'):
     """
     if method == 'lz77':
         h = (c * np.log2(c) + 2 * c * np.log2(nsites / c)) / nsites
+        h *= np.log2(nsites) / (np.log2(nsites) + a * np.log2(np.log2(nsites)))
     elif method == 'lz78':
-        h = c * (1. + np.log2(c)) / nsites
+        h = c * (np.log2(alphabetsize) + np.log2(c)) / nsites
     else:
         raise NotImplementedError
-    h *= np.log2(nsites) / (np.log2(nsites) + a * np.log2(np.log2(nsites)))
     return h
 
 
