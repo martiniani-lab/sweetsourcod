@@ -11,7 +11,7 @@ ssimple.py: A simple example on how to use sweetsourcod
 """
 
 __author__ = "Stefano Martiniani"
-__copyright__ = "Copyright 2018, sweetsourcod"
+__copyright__ = "Copyright 2019, sweetsourcod"
 __license__ = "GPL"
 __maintainer__ = "Stefano Martiniani"
 __email__ = "sm7683@nyu.edu"
@@ -55,7 +55,7 @@ if __name__ == "__main__":
 
     # now with LZ77 we compute the number of longest previous factors c, and the entropy rate h
     # note that lz77 also outputs the mean log word length, that we don't need here
-    c_lz77, _ = lempel_ziv_complexity(image_hilbert, 'lz77')
+    c_lz77, sumlog = lempel_ziv_complexity(image_hilbert, 'lz77')
     h_lz77 = get_entropy_rate(c_lz77, n, a=1.5, method='lz77')
     # or the number of unique words using lz78 c, and the entropy rate h
     c_lz78 = lempel_ziv_complexity(image_hilbert, 'lz78')

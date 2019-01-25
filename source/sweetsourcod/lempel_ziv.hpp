@@ -126,19 +126,18 @@ std::vector<std::vector<int>> get_lz77_factors(const std::vector<T> lattice){
     return v;
 }
 
-//returns complexity and mean log word length
+//returns complexity and compressed file size up to loglog corrections
 template<class T=long long>
-std::pair<size_t, double> lempel_ziv_complexity77_mlwl_kkp(const std::vector<T> lattice){
+std::pair<size_t, double> lempel_ziv_complexity77_sumlog_kkp(const std::vector<T> lattice){
     std::string sequence = int_vector_to_string<T>(lattice);
     std::vector<std::pair<int, int>> factors;
     size_t nfactors = lempel_ziv_complexity77_kkp(sequence, &factors);
     if (nfactors != factors.size()){throw std::runtime_error("nfactors and factors.size do no match");}
-    double mlwl = 0;
+    double sumlog = 0;
     for (const auto &x : factors){
-        mlwl += std::log2(static_cast<double>(std::max(1, x.second)));
+        sumlog += std::log2(static_cast<double>(std::max(1, x.first))) + std::log2(static_cast<double>(std::max(1, x.second)));
     }
-    mlwl /= nfactors;
-    return std::pair<size_t, double>(nfactors, mlwl);
+    return std::pair<size_t, double>(nfactors, sumlog);
 }
 
 }

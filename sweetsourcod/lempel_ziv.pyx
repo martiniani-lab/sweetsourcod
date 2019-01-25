@@ -8,7 +8,7 @@ cpdef lempel_ziv_complexity(lattice, version='lz77'):
     if version == 'lz76':
         return lempel_ziv_complexity76(lattice)
     elif version == 'lz77': #unrestricted
-        return lempel_ziv_complexity77_mlwl_kkp(lattice)
+        return lempel_ziv_complexity77_sumlog_kkp(lattice)
     elif version == 'lz78':
         return lempel_ziv_complexity78(lattice)
     else:
