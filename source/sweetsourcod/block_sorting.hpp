@@ -21,7 +21,7 @@ namespace ssc
 
 inline double sumlogp_segment(const std::string& sequence) {
 	std::unordered_map<char, std::shared_ptr<size_t>> umap;
-	const int length = sequence.size();
+	size_t length = sequence.size();
 
 	for (size_t i = 0; i < length; ++i) {
 		const char symbol = sequence[i];
@@ -43,8 +43,8 @@ inline double sumlogp_segment(const std::string& sequence) {
 }
 
 inline double block_sorting_estimator_uniform(std::string& sequence) {
-	const int length = sequence.size();
-	const int seg_len = std::ceil(std::sqrt(length));
+	size_t length = sequence.size();
+	size_t seg_len = std::ceil(std::sqrt(length));
 	std::shared_ptr<unsigned char> text(new unsigned char[length], std::default_delete<unsigned char[]>());
 	std::shared_ptr<unsigned char>    u(new unsigned char[length], std::default_delete<unsigned char[]>());
 	
