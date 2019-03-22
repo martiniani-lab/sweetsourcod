@@ -139,14 +139,14 @@ print depends_all
 
 cxx_modules = [
     Extension("sweetsourcod.lempel_ziv",
-              ["sweetsourcod/lempel_ziv.cxx"] + include_sources_all,
-              include_dirs=include_dirs,
-              extra_compile_args=extra_compile_args,
-              #libraries=['m', 'gsl', 'gslcblas'],
-              libraries=['m'],
-              extra_link_args=["-std=c++11"],
-              language="c++", depends=depends_all,
-              ),
+                  ["sweetsourcod/lempel_ziv.cxx"] + include_sources_all,
+                  include_dirs=include_dirs,
+                  extra_compile_args=extra_compile_args,
+                  #libraries=['m', 'gsl', 'gslcblas'],
+                  libraries=['m'],
+                  extra_link_args=["-std=c++11"],
+                  language="c++", depends=depends_all,
+                  ),
     Extension("sweetsourcod.block_entropy",
                   ["sweetsourcod/block_entropy.cxx"] + include_sources_all,
                   include_dirs=include_dirs,
@@ -174,6 +174,15 @@ cxx_modules = [
                   extra_link_args=["-std=c++11"],
                   language="c++", depends=depends_all,
                   ),
+    Extension("sweetsourcod.gosper",
+                  ["sweetsourcod/gosper.cxx"] + include_sources_all,
+                  include_dirs=include_dirs,
+                  extra_compile_args=extra_compile_args,
+                  libraries=['m'],
+                  extra_link_args=["-std=c++11"],
+                  language="c++", depends=depends_all,
+                  )
+
 ]
 
 setup(
