@@ -19,6 +19,30 @@
 namespace ssc 
 {
 
+inline std::string burrows_wheeler_transform(std::string& sequence) {
+	size_t length = sequence.size();
+	std::shared_ptr<unsigned char> text(new unsigned char[length], std::default_delete<unsigned char[]>());
+	std::shared_ptr<unsigned char>    u(new unsigned char[length], std::default_delete<unsigned char[]>());
+
+	std::reverse(sequence.begin(), sequence.end());
+	memcpy(text.get(), sequence.c_str(), length);
+	divbwt(text.get(), u.get(), NULL, length);
+
+	std::string str_bwt(reinterpret_cast<char const*>(u.get()), length);
+
+	return str_bwt;
+}
+	
+// return the Burrows-Wheeler transform of the reversed sequence 
+template<class T = long long>
+std::vector<unsigned char> burrows_wheeler_transform(const std::vector<T> lattice) {
+	std::string sequence = int_vector_to_string<T>(lattice);
+	std::string str_bwt = burrows_wheeler_transform(sequence);
+	std::vector<unsigned char> vec_bwt(str_bwt.begin(), str_bwt.end());
+
+	return vec_bwt;
+}
+
 inline double sumlogp_segment(const std::string& sequence) {
 	std::unordered_map<char, std::shared_ptr<size_t>> umap;
 	size_t length = sequence.size();
@@ -45,15 +69,10 @@ inline double sumlogp_segment(const std::string& sequence) {
 inline double block_sorting_estimator_uniform(std::string& sequence) {
 	size_t length = sequence.size();
 	size_t seg_len = std::ceil(std::sqrt(length));
-	std::shared_ptr<unsigned char> text(new unsigned char[length], std::default_delete<unsigned char[]>());
-	std::shared_ptr<unsigned char>    u(new unsigned char[length], std::default_delete<unsigned char[]>());
-	
-	memcpy(text.get(), sequence.c_str(), length);
-	divbwt(text.get(), u.get(), NULL, length);
+	std::string str_seg;
+	std::string str_bwt = burrows_wheeler_transform(sequence);
 
 	double entropy = 0;
-	std::string str_seg;
-	std::string str_bwt(reinterpret_cast<char const*>(u.get()), length);
 	
 	for (size_t i = 0; i < length; i += seg_len) {
 		str_seg.assign(str_bwt, i, seg_len);
@@ -68,8 +87,6 @@ inline double block_sorting_estimator_uniform(std::string& sequence) {
 template<class T = long long>
 double block_sorting_estimator_uniform(const std::vector<T> lattice) {
 	std::string sequence = int_vector_to_string<T>(lattice);
-	std::reverse(sequence.begin(), sequence.end());
-	
 	return block_sorting_estimator_uniform(sequence);
 }
 
