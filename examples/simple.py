@@ -6,6 +6,7 @@ from sweetsourcod.hilbert import get_hilbert_mask
 from sweetsourcod.zipper_compress import get_comp_size_bytes
 from sweetsourcod.block_entropy import block_entropy
 from PIL import Image
+import os
 
 """
 ssimple.py: A simple example on how to use sweetsourcod
@@ -17,6 +18,8 @@ __license__ = "GPL"
 __maintainer__ = "Stefano Martiniani"
 __email__ = "sm7683@nyu.edu"
 
+
+filepath = os.path.dirname(os.path.abspath(__file__))
 
 @jit(nopython=True)
 def mask_array(lattice, mask):
@@ -88,7 +91,7 @@ def get_entropy_rate_bbox(x, extrapolate=True, algorithm='deflate', **kwargs):
 
 if __name__ == "__main__":
     # image taken from wikipedia
-    image = Image.open("Samantha_Cristoforetti_official_portrait_in_an_EMU_spacesuit.jpg").convert('1') # open colour image, convert to b&w
+    image = Image.open(os.path.join(filepath, "Samantha_Cristoforetti_official_portrait_in_an_EMU_spacesuit.jpg")).convert('1') # open colour image, convert to b&w
     image = np.asarray(image, dtype='uint8')
     # if you want to see what you are compressing uncomment the next line
     # Image.fromarray(image*255).show()
