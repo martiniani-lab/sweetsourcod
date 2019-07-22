@@ -22,18 +22,19 @@ def mask_array(lattice, mask):
     return np.array([lattice[i] for i in mask])
 
 
-def get_entropy_rate(c, nsites, a=2, alphabetsize=2, method='lz77'):
+def get_entropy_rate(c, nsites, norm=1, alphabetsize=2, method='lz77'):
     """
     :param c: number of longest previous factors (lz77) or unique words (lz78)  
-    :param a: convergence rate parameter, need be <= 2
+    :param norm: normalization constant, usually the filesize per character of a random binary sequence of the same length
     :param method: lz77 or lz78
     :return: entropy rate h
     """
     if method == 'lz77':
         h = (c * np.log2(c) + 2 * c * np.log2(nsites / c)) / nsites
-        h *= np.log2(nsites) / (np.log2(nsites) + a * np.log2(np.log2(nsites)))
+        h /= norm
     elif method == 'lz78':
         h = c * (np.log2(alphabetsize) + np.log2(c)) / nsites
+        h /= norm
     else:
         raise NotImplementedError
     return h
@@ -54,16 +55,17 @@ if __name__ == "__main__":
     image_hilbert = mask_array(image_raster, hilbert_mask).astype('uint8')
 
     # now with LZ77 we compute the number of longest previous factors c, and the entropy rate h
-    # note that lz77 also outputs the mean log word length, that we don't need here
-    c_lz77, sumlog = lempel_ziv_complexity(image_hilbert, 'lz77')
-    h_lz77 = get_entropy_rate(c_lz77, n, a=1.5, method='lz77')
+    # note that lz77 also outputs the sum of the logs of the factors which is approximately 
+    # equal to the compressed size of the file
+    c_lz77, h_lz77_sumlog = lempel_ziv_complexity(image_hilbert, 'lz77')
+    h_lz77_bound = get_entropy_rate(c_lz77, n, method='lz77')
     # or the number of unique words using lz78 c, and the entropy rate h
     c_lz78 = lempel_ziv_complexity(image_hilbert, 'lz78')
-    h_lz78 = get_entropy_rate(c_lz78, n, a=1, method='lz78')
+    h_lz78 = get_entropy_rate(c_lz78, n, method='lz78')
     # or the length of the encoding obtained by a commercial algorithm, e.g. deflate
     defl_enc, _, _ = get_comp_size_bytes(image_hilbert, complevel='HIGHEST_PROTOCOL', algorithm='deflate')
     h_defl = 8 * defl_enc / image_hilbert.size
     # or the block entropy with block size 6 (computed as be(7) - be(6))
     h_be = block_entropy(image_hilbert, blocksize=6)
 
-    print("h_lz77: {}, h_lz78: {}, h_deflate: {}, h_be: {}".format(h_lz77, h_lz78, h_defl, h_be))
+    print("h_lz77_sumlog: {}, h_lz77: {}, h_lz78: {}, h_deflate: {}, h_be: {}".format(h_lz77_sumlog, h_lz77_bound, h_lz78, h_defl, h_be))
