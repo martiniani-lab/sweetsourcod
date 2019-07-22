@@ -87,11 +87,11 @@ def get_entropy_rate_bbox(x, extrapolate=True, algorithm='deflate', **kwargs):
 
 
 if __name__ == "__main__":
-    image = Image.open("Samantha_Cristoforetti_official_portrait_in_an_EMU_spacesuit.jpg").convert('1') # open colour image, imported from wikipedia
-    # take a square section of the image so that we can scan it using a hilbert scan
+    # image taken from wikipedia
+    image = Image.open("Samantha_Cristoforetti_official_portrait_in_an_EMU_spacesuit.jpg").convert('1') # open colour image, convert to b&w
     image = np.asarray(image, dtype='uint8')
     # if you want to see what you are compressing uncomment the next line
-    Image.fromarray(image*255).show()
+    # Image.fromarray(image*255).show()
 
     # lattice_boxv is the size of the lattice in each direction [Lx, Ly, ...]
     # note that lattice_boxv = image.shape[::-1]
@@ -106,7 +106,7 @@ if __name__ == "__main__":
         image_flat = image.ravel()
     elif scan == 'hilbert':
         # alternatively we can use a hilbert space filling curve, this requires
-        # that each side length is a power of 2
+        # that each side length is a power of 2, so take a square section of the image so that we can scan it using a hilbert scan
         image = image[:2**9, :2**9]
         lattice_boxv = np.asarray(image.shape[::-1])
         n = np.prod(lattice_boxv)    
