@@ -213,6 +213,12 @@ def get_hilbert_scan(lattice, lattice_boxv):
             if x < lattice_shape[2] and y < lattice_shape[1] and z < lattice_shape[0]:
                 scanned_lattice[j] = rlattice[z, y, x]
                 j += 1
+    elif ndim == 4:
+        for i in xrange(distance):
+            x1, x2, x3, x4 = coordinates_from_distance(i, p, ndim)
+            if x1 < lattice_shape[3] and x2 < lattice_shape[2] and x3 < lattice_shape[1] and x4 < lattice_shape[0]:
+                scanned_lattice[j] = rlattice[x4, x3, x2, x1]
+                j += 1
     else:
         raise NotImplementedError
     return scanned_lattice
@@ -236,10 +242,19 @@ def get_hilbert_mask(lattice_boxv):
                 mask[j] = x + y * lattice_boxv[0]
                 j += 1
     elif ndim == 3:
+        lattice_boxv01 = lattice_boxv[0] * lattice_boxv[1]
         for i in xrange(distance):
             x, y, z = coordinates_from_distance(i, p, ndim)
             if x < lattice_shape[2] and y < lattice_shape[1] and z < lattice_shape[0]:
-                mask[j] = x + y * lattice_boxv[0] + z * lattice_boxv[0] * lattice_boxv[1]
+                mask[j] = x + y * lattice_boxv[0] + z * lattice_boxv01
+                j += 1
+    elif ndim == 4:
+        lattice_boxv01 = lattice_boxv[0] * lattice_boxv[1]
+        lattice_boxv012 = lattice_boxv01 * lattice_boxv[2]
+        for i in xrange(distance):
+            x1, x2, x3, x4 = coordinates_from_distance(i, p, ndim)
+            if x1 < lattice_shape[3] and x2 < lattice_shape[2] and x3 < lattice_shape[1] and x4 < lattice_shape[0]:
+                mask[j] = x1 + x2 * lattice_boxv[0] + x3 * lattice_boxv01 + x4 * lattice_boxv012
                 j += 1
     else:
         raise NotImplementedError
