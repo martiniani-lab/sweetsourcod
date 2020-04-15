@@ -6,7 +6,7 @@ This library is a collection of methods to estimate the entropy of sequences by 
 
 An example of the use of this library can be found in
 
-S. Martiniani, P. Chaikin, D. Levine, "Quantifying hidden order out of equilibrium", [arXiv preprint: 1708.04993](https://arxiv.org/abs/1708.04993)
+S. Martiniani, P. Chaikin, D. Levine, "Quantifying hidden order out of equilibrium", [Phys. Rev. X 9, 011031  (2019)](https://journals.aps.org/prx/abstract/10.1103/PhysRevX.9.011031)
 
 ### Description
 

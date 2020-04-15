@@ -69,8 +69,10 @@ def generate_cython():
     if p != 0:
         raise RuntimeError("Running cythonize failed!")
 
-# os.environ["CC"] = "g++"
-# os.environ["CXX"] = "g++"
+
+if os.name == 'posix':
+    os.environ["CC"] = "g++"
+    os.environ["CXX"] = "g++"
 
 generate_cython()
 
@@ -142,7 +144,6 @@ cxx_modules = [
                   ["sweetsourcod/lempel_ziv.cxx"] + include_sources_all,
                   include_dirs=include_dirs,
                   extra_compile_args=extra_compile_args,
-                  #libraries=['m', 'gsl', 'gslcblas'],
                   libraries=['m'],
                   extra_link_args=["-std=c++11"],
                   language="c++", depends=depends_all,
@@ -151,7 +152,6 @@ cxx_modules = [
                   ["sweetsourcod/block_entropy.cxx"] + include_sources_all,
                   include_dirs=include_dirs,
                   extra_compile_args=extra_compile_args,
-                  #libraries=['m', 'gsl', 'gslcblas'],
                   libraries=['m'],
                   extra_link_args=["-std=c++11"],
                   language="c++", depends=depends_all,
@@ -160,7 +160,6 @@ cxx_modules = [
                   ["sweetsourcod/block_sorting.cxx"] + include_sources_all,
                   include_dirs=include_dirs,
                   extra_compile_args=extra_compile_args,
-                  #libraries=['m', 'gsl', 'gslcblas'],
                   libraries=['m'],
                   extra_link_args=["-std=c++11"],
                   language="c++", depends=depends_all,
@@ -169,7 +168,6 @@ cxx_modules = [
                   ["sweetsourcod/hilbert.cxx"] + include_sources_all,
                   include_dirs=include_dirs,
                   extra_compile_args=extra_compile_args,
-                  #libraries=['m', 'gsl', 'gslcblas'],
                   libraries=['m'],
                   extra_link_args=["-std=c++11"],
                   language="c++", depends=depends_all,
