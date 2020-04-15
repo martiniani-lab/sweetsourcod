@@ -127,7 +127,8 @@ elif jargs.compiler in ("intel", "icc", "icpc"):
 
 extra_compile_args = ["-std=c++11", "-Wall", "-Wextra", "-pedantic", "-O3", "-fPIC"]
 if idcompiler.lower() == 'unix':
-    extra_compile_args += ['-march=native', '-flto']  # , '-fopenmp'
+    #extra_compile_args += ['-march=native', '-flto']  # , '-fopenmp'
+    extra_compile_args += ['-flto']  # , '-fopenmp'
 else:
     extra_compile_args += ['-axCORE-AVX2', '-ipo', '-ip', '-unroll',
                            '-qopt-report-stdout', '-qopt-report-phase=openmp'] # '-qopenmp',
@@ -140,15 +141,23 @@ print depends_all
 
 cxx_modules = [
     Extension("sweetsourcod.lempel_ziv",
-              ["sweetsourcod/lempel_ziv.cxx"] + include_sources_all,
-              include_dirs=include_dirs,
-              extra_compile_args=extra_compile_args,
-              libraries=['m'],
-              extra_link_args=["-std=c++11"],
-              language="c++", depends=depends_all,
-              ),
+                  ["sweetsourcod/lempel_ziv.cxx"] + include_sources_all,
+                  include_dirs=include_dirs,
+                  extra_compile_args=extra_compile_args,
+                  libraries=['m'],
+                  extra_link_args=["-std=c++11"],
+                  language="c++", depends=depends_all,
+                  ),
     Extension("sweetsourcod.block_entropy",
                   ["sweetsourcod/block_entropy.cxx"] + include_sources_all,
+                  include_dirs=include_dirs,
+                  extra_compile_args=extra_compile_args,
+                  libraries=['m'],
+                  extra_link_args=["-std=c++11"],
+                  language="c++", depends=depends_all,
+                  ),
+    Extension("sweetsourcod.block_sorting",
+                  ["sweetsourcod/block_sorting.cxx"] + include_sources_all,
                   include_dirs=include_dirs,
                   extra_compile_args=extra_compile_args,
                   libraries=['m'],
@@ -163,6 +172,15 @@ cxx_modules = [
                   extra_link_args=["-std=c++11"],
                   language="c++", depends=depends_all,
                   ),
+    Extension("sweetsourcod.gosper",
+                  ["sweetsourcod/gosper.cxx"] + include_sources_all,
+                  include_dirs=include_dirs,
+                  extra_compile_args=extra_compile_args,
+                  libraries=['m'],
+                  extra_link_args=["-std=c++11"],
+                  language="c++", depends=depends_all,
+                  )
+
 ]
 
 setup(
