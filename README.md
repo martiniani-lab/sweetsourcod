@@ -20,6 +20,8 @@ The library implements/wraps a number of algorithms and utilities:
 
 - *Block Entropy*, Shannon entropy for blocks of a given size.
 
+- *Block Sorting* (Burrows-Wheeler Transform) based entropy estimator.
+
 - Wraps a range of compression algorithms readily available in Python (after reducing the sequence to its minimal binary representation)
   * deflate
   * bzip2
