@@ -1,6 +1,6 @@
 # SweetSourCod
 
-## The sweet source coding library
+## The sweet source-coding library
 
 This library is a collection of methods to estimate the entropy of sequences by data compression (source coding).
 
