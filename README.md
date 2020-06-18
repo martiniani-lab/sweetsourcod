@@ -30,7 +30,9 @@ The library implements/wraps a number of algorithms and utilities:
   
 - *run-length encoding*
 
-- *Hilbert curve*, Hilbert-Peano space filling curve for optimal compression of higher dimensional sequences.
+- *Hilbert curve*, Hilbert-Peano space filling curve for optimal compression of higher dimensional sequences on a square grid.
+
+- *Gosper curve*, space filling curve for optimal compression of higher dimensional sequences on an hexagonal grid.
 
 ### Installation
 
