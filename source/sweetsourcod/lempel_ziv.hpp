@@ -135,7 +135,7 @@ std::pair<size_t, double> lempel_ziv_complexity77_sumlog_kkp(const std::vector<T
     if (nfactors != factors.size()){throw std::runtime_error("nfactors and factors.size do no match");}
     double sumlog = 0;
     for (const auto &x : factors){
-        sumlog += std::log2(static_cast<double>(std::max(2, x.first+1))) + std::log2(static_cast<double>(std::max(2, x.second+1)));
+        sumlog += std::log2(static_cast<double>(std::max(2, x.first))) + std::log2(static_cast<double>(std::max(2, x.second)));
     }
     return std::pair<size_t, double>(nfactors, sumlog);
 }
