@@ -25,7 +25,7 @@ std::string int_vector_to_string(const std::vector<T>& v){
     ss.reserve(v.size());
     for (const auto& x: v){
         if (x < 0) {throw std::runtime_error("int_vector_to_string only accepts sequences of positive values");}
-        //if (x > 254) {throw std::runtime_error("x>254, exceeded ascii table");}
+        if (x > 255) {throw std::runtime_error("x>255, exceeded ascii table");}
         ss.push_back(static_cast<int>(x));
     }
     return ss;
