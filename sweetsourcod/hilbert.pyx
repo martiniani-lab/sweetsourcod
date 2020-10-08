@@ -63,7 +63,7 @@ from that code that appears in the paper by Skilling, ::
 cdef _binary_repr(int num, int width):
     """Return a binary string representation of `num` zero padded to `width`
     bits."""
-    return format(num, 'b').zfill(width)
+    return format(num, 'b').zfill(width).encode()
 
 cdef _hilbert_integer_to_transpose(int h, int p, int N):
     """Store a hilbert integer (`h`) as its transpose (`x`).

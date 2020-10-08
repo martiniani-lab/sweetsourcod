@@ -1,3 +1,4 @@
+from __future__ import division, absolute_import, print_function
 import os
 import sys
 import subprocess
@@ -137,7 +138,7 @@ include_sources_all = include_sources_sweetsourcod
 
 depends_all = depends_sweetsourcod
 
-print depends_all
+print(depends_all)
 
 cxx_modules = [
     Extension("sweetsourcod.lempel_ziv",

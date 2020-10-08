@@ -1,4 +1,4 @@
-from __future__ import division, print_function
+from __future__ import division, print_function, absolute_import
 import numpy as np
 from numba import jit
 from sweetsourcod.lempel_ziv import lempel_ziv_complexity
@@ -28,7 +28,7 @@ def mask_array(lattice, mask):
 
 def _get_entropy_rate(c, nsites, norm=1, alphabetsize=2, method='lz77'):
     """
-    :param c: number of longest previous factors (lz77) or unique words (lz78)  
+    :param c: number of longest previous factors (lz77) or unique words (lz78)
     :param norm: normalization constant, usually the filesize per character of a random binary sequence of the same length
     :param method: lz77 or lz78
     :return: entropy rate h
@@ -46,7 +46,7 @@ def _get_entropy_rate(c, nsites, norm=1, alphabetsize=2, method='lz77'):
 
 def get_entropy_rate_lz77(x, extrapolate=True):
     # now with LZ77 we compute the number of longest previous factors c, and the entropy rate h
-    # note that lz77 also outputs the sum of the logs of the factors which is approximately 
+    # note that lz77 also outputs the sum of the logs of the factors which is approximately
     # equal to the compressed size of the file
     nsites = len(x)
     if extrapolate:
@@ -99,8 +99,8 @@ if __name__ == "__main__":
     # lattice_boxv is the size of the lattice in each direction [Lx, Ly, ...]
     # note that lattice_boxv = image.shape[::-1]
     lattice_boxv = np.asarray(image.shape[::-1])
-    n = np.prod(lattice_boxv) 
-    
+    n = np.prod(lattice_boxv)
+
     # we need to flatten the image, choose between raster and hilbert
     scan = 'hilbert'
 
@@ -112,7 +112,7 @@ if __name__ == "__main__":
         # that each side length is a power of 2, so take a square section of the image so that we can scan it using a hilbert scan
         image = image[:2**9, :2**9]
         lattice_boxv = np.asarray(image.shape[::-1])
-        n = np.prod(lattice_boxv)    
+        n = np.prod(lattice_boxv)
         hilbert_mask = get_hilbert_mask(lattice_boxv)
         image_flat = mask_array(image.ravel(), hilbert_mask).astype('uint8')
     else:
