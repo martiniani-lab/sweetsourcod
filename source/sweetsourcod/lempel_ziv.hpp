@@ -25,7 +25,19 @@ std::string int_vector_to_string(const std::vector<T>& v){
     ss.reserve(v.size());
     for (const auto& x: v){
         if (x < 0) {throw std::runtime_error("int_vector_to_string only accepts sequences of positive values");}
-        if (x > 254) {throw std::runtime_error("x>255, exceeded ascii table");}
+        if (x > 255) {throw std::runtime_error("x>255, exceeded ascii table");}
+        ss.push_back(static_cast<int>(x));
+    }
+    return ss;
+}
+
+template<class T=long long>
+std::string int_vector_to_string_cp(const std::vector<T>& v){
+    std::string ss;
+    ss.reserve(v.size());
+    for (const auto& x: v){
+        if (x < 0) {throw std::runtime_error("int_vector_to_string_cp only accepts sequences of positive values");}
+        if (x > 254) {throw std::runtime_error("x>254, exceeded maximum value for cross-parsing");}
         ss.push_back(static_cast<int>(x+1));
     }
     return ss;
@@ -188,22 +200,22 @@ inline size_t cross_parsing(std::string& sequence1, std::string& sequence2, std:
 
 template<class T = long long>
 size_t cross_parsing(const std::vector<T> lattice1, const std::vector<T> lattice2, std::vector<std::pair<int, int>> &factors) {
-    std::string sequence1 = int_vector_to_string<T>(lattice1);
-    std::string sequence2 = int_vector_to_string<T>(lattice2);
+    std::string sequence1 = int_vector_to_string_cp<T>(lattice1);
+    std::string sequence2 = int_vector_to_string_cp<T>(lattice2);
     return cross_parsing(sequence1, sequence2, &factors);
 }
 
 template<class T = long long>
 size_t cross_parsing(const std::vector<T> lattice1, const std::vector<T> lattice2) {
-    std::string sequence1 = int_vector_to_string<T>(lattice1);
-    std::string sequence2 = int_vector_to_string<T>(lattice2);
+    std::string sequence1 = int_vector_to_string_cp<T>(lattice1);
+    std::string sequence2 = int_vector_to_string_cp<T>(lattice2);
     return cross_parsing(sequence1, sequence2, NULL);
 }
 
 template<class T = long long>
 std::vector<std::vector<int>> get_cross_parsing_factors(const std::vector<T> lattice1, const std::vector<T> lattice2) {
-    std::string sequence1 = int_vector_to_string<T>(lattice1);
-    std::string sequence2 = int_vector_to_string<T>(lattice2);
+    std::string sequence1 = int_vector_to_string_cp<T>(lattice1);
+    std::string sequence2 = int_vector_to_string_cp<T>(lattice2);
     std::vector<std::pair<int, int>> factors;
     size_t nfactors = cross_parsing(sequence1, sequence2, &factors);
     if (nfactors != factors.size()) { throw std::runtime_error("nfactors and factors.size do no match"); }
@@ -216,8 +228,8 @@ std::vector<std::vector<int>> get_cross_parsing_factors(const std::vector<T> lat
 
 template<class T = long long>
 std::pair<size_t, double> cross_parsing_complexity_sumlog(const std::vector<T> lattice1, const std::vector<T> lattice2) {
-    std::string sequence1 = int_vector_to_string<T>(lattice1);
-    std::string sequence2 = int_vector_to_string<T>(lattice2);
+    std::string sequence1 = int_vector_to_string_cp<T>(lattice1);
+    std::string sequence2 = int_vector_to_string_cp<T>(lattice2);
     std::vector<std::pair<int, int>> factors;
     size_t nfactors = cross_parsing(sequence1, sequence2, &factors);
     if (nfactors != factors.size()) { throw std::runtime_error("nfactors and factors.size do no match"); }
