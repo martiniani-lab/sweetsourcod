@@ -31,6 +31,18 @@ std::string int_vector_to_string(const std::vector<T>& v){
     return ss;
 }
 
+template<class T=long long>
+std::string int_vector_to_string_cp(const std::vector<T>& v){
+    std::string ss;
+    ss.reserve(v.size());
+    for (const auto& x: v){
+        if (x < 0) {throw std::runtime_error("int_vector_to_string_cp only accepts sequences of positive values");}
+        if (x > 254) {throw std::runtime_error("x>254, exceeded maximum value for cross-parsing");}
+        ss.push_back(static_cast<int>(x+1));
+    }
+    return ss;
+}
+
 inline size_t lempel_ziv_complexity78(const std::string& sequence){
     bool remainder = false;
     std::unordered_set<std::string> lz_factors;
@@ -135,6 +147,94 @@ std::pair<size_t, double> lempel_ziv_complexity77_sumlog_kkp(const std::vector<T
     if (nfactors != factors.size()){throw std::runtime_error("nfactors and factors.size do no match");}
     double sumlog = 0;
     for (const auto &x : factors){
+        sumlog += std::log2(static_cast<double>(std::max(2, x.first))) + std::log2(static_cast<double>(std::max(2, x.second)));
+    }
+    return std::pair<size_t, double>(nfactors, sumlog);
+}
+
+
+// Ziv-Merhav method for estimating relative entropy by cross parsing:
+
+inline size_t cross_parsing(std::string& sequence1, std::string& sequence2, std::vector<std::pair<int, int>>* factorsp=NULL) {
+    std::string sequence = sequence1 + char(0) + sequence2;
+    const int length = sequence.size();
+    std::shared_ptr<unsigned char> text(new unsigned char[length], std::default_delete<unsigned char[]>());
+    std::shared_ptr<int> sa(new int[length], std::default_delete<int[]>());
+    std::shared_ptr<int> isa(new int[length], std::default_delete<int[]>());
+
+    memcpy(text.get(), sequence.c_str(), length);
+    divsufsort(text.get(), sa.get(), length);
+    for (int i = 0; i < length; ++i) {
+        isa.get()[sa.get()[i]] = i;
+    }
+
+    const int length1 = sequence1.size();
+    int nfactors = 0;
+    int next = length1 + 1;
+    int nsv_lex, psv_lex, nsv, psv;
+    
+    while (next < length) {
+        int next_lex = isa.get()[next];
+
+        psv_lex = next_lex - 1;
+        while (psv_lex >= 0 && sa.get()[psv_lex] >= length1) --psv_lex;
+        if (psv_lex == -1) {
+            psv = -1;
+        } else {
+            psv = sa.get()[psv_lex];
+        }
+        nsv_lex = next_lex + 1;
+        while (nsv_lex < length && sa.get()[nsv_lex] >= length1) ++nsv_lex;
+        if (nsv_lex == length) {
+            nsv = -1;
+        } else {
+            nsv = sa.get()[nsv_lex];
+        }
+
+        next = parse_phrase(text.get(), length, next, psv, nsv, factorsp);
+        ++nfactors;
+    }
+
+    return nfactors;
+}
+
+template<class T = long long>
+size_t cross_parsing(const std::vector<T> lattice1, const std::vector<T> lattice2, std::vector<std::pair<int, int>> &factors) {
+    std::string sequence1 = int_vector_to_string_cp<T>(lattice1);
+    std::string sequence2 = int_vector_to_string_cp<T>(lattice2);
+    return cross_parsing(sequence1, sequence2, &factors);
+}
+
+template<class T = long long>
+size_t cross_parsing(const std::vector<T> lattice1, const std::vector<T> lattice2) {
+    std::string sequence1 = int_vector_to_string_cp<T>(lattice1);
+    std::string sequence2 = int_vector_to_string_cp<T>(lattice2);
+    return cross_parsing(sequence1, sequence2, NULL);
+}
+
+template<class T = long long>
+std::vector<std::vector<int>> get_cross_parsing_factors(const std::vector<T> lattice1, const std::vector<T> lattice2) {
+    std::string sequence1 = int_vector_to_string_cp<T>(lattice1);
+    std::string sequence2 = int_vector_to_string_cp<T>(lattice2);
+    std::vector<std::pair<int, int>> factors;
+    size_t nfactors = cross_parsing(sequence1, sequence2, &factors);
+    if (nfactors != factors.size()) { throw std::runtime_error("nfactors and factors.size do no match"); }
+    std::vector<std::vector<int>> v;
+    for (const auto& x : factors) {
+        v.push_back({ x.first, x.second });
+    }
+    return v;
+}
+
+template<class T = long long>
+std::pair<size_t, double> cross_parsing_complexity_sumlog(const std::vector<T> lattice1, const std::vector<T> lattice2) {
+    std::string sequence1 = int_vector_to_string_cp<T>(lattice1);
+    std::string sequence2 = int_vector_to_string_cp<T>(lattice2);
+    std::vector<std::pair<int, int>> factors;
+    size_t nfactors = cross_parsing(sequence1, sequence2, &factors);
+    if (nfactors != factors.size()) { throw std::runtime_error("nfactors and factors.size do no match"); }
+    double sumlog = 0;
+    for (const auto& x : factors) {
         sumlog += std::log2(static_cast<double>(std::max(2, x.first))) + std::log2(static_cast<double>(std::max(2, x.second)));
     }
     return std::pair<size_t, double>(nfactors, sumlog);

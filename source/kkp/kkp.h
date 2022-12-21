@@ -60,4 +60,7 @@ int kkp2(unsigned char *X, int *SA, int n,
 int kkp1s(unsigned char *X, int n, std::string SA_fname,
     std::vector<std::pair<int, int> > *F);
 
+int parse_phrase(unsigned char* X, int n, int i, int psv, int nsv,
+    std::vector<std::pair<int, int> >* F);
+
 #endif // __KKP_H

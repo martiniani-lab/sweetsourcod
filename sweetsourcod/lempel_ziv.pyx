@@ -21,3 +21,11 @@ def lempel_ziv_factors(lattice, version='lz77'):
     else:
         raise NotImplementedError
     return factors
+    
+
+cpdef cross_parsing_complexity(lattice1, lattice2):
+    return cross_parsing_complexity_sumlog(lattice1, lattice2)
+
+def cross_parsing_factors(lattice1, lattice2):
+    return get_cross_parsing_factors(lattice1, lattice2)
+
