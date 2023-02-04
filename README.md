@@ -6,13 +6,13 @@ This library is a collection of methods to estimate the entropy of sequences by 
 
 Examples of the use of this library can be found in
 
-S. Martiniani, P. Chaikin, D. Levine, "Quantifying hidden order out of equilibrium", [Phys. Rev. X 9, 011031  (2019)](https://journals.aps.org/prx/abstract/10.1103/PhysRevX.9.011031)
+1. S. Martiniani, P. Chaikin, D. Levine, "Quantifying hidden order out of equilibrium", [Phys. Rev. X 9, 011031  (2019)](https://journals.aps.org/prx/abstract/10.1103/PhysRevX.9.011031)
 
-S. Martiniani, Y. Lemberg, P. Chaikin, D. Levine, "Correlation lengths in the language of computable information", [Phys. Rev. Lett. 125, 170601 (2020)](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.125.170601)
+2. S. Martiniani, Y. Lemberg, P. Chaikin, D. Levine, "Correlation lengths in the language of computable information", [Phys. Rev. Lett. 125, 170601 (2020)](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.125.170601)
 
-A. Cavagna, P. M. Chaikin, D. Levine, S. Martiniani, A. Puglisi, and M. Viale, "Vicsek model by time-interlaced compression: A dynamical computable information density", [Phys. Rev. E 103, 062141 (2021)](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.103.062141)
+3. A. Cavagna, P. M. Chaikin, D. Levine, S. Martiniani, A. Puglisi, and M. Viale, "Vicsek model by time-interlaced compression: A dynamical computable information density", [Phys. Rev. E 103, 062141 (2021)](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.103.062141)
 
-S. Ro, B. Guo, A. Shih, T. Phan, R. Austin, D. Levine, P. Chaikin, and S. Martiniani, "Model-Free Measurement of Local Entropy Production and Extractable Work in Active Matter", [Phys. Rev. Lett. 129, 220601 (2022)](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.129.220601)
+4. S. Ro, B. Guo, A. Shih, T. Phan, R. Austin, D. Levine, P. Chaikin, and S. Martiniani, "Model-Free Measurement of Local Entropy Production and Extractable Work in Active Matter", [Phys. Rev. Lett. 129, 220601 (2022)](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.129.220601)
 
 ### Description
 
