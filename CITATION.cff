@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Martiniani"
+  given-names: "Stefano"
+  orcid: "https://orcid.org/0000-0003-2028-2175"
+- family-names: "Guo"
+  given-names: "Buming"
+  orcid: "https://orcid.org/0000-0003-2581-7933"
+title: "Sweetsourcod"
+version: 1.0.0
+# doi: 10.5281/zenodo.1234
+# date-released: 2017-12-18
+url: "https://github.com/martiniani-lab/sweetsourcod"
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Martiniani"
+    given-names: "Stefano"
+    orcid: "https://orcid.org/0000-0003-2028-2175"
+  - family-names: "Chaikin"
+    given-names: "Paul"
+    orcid: "https://orcid.org/0000-0001-9864-0089"
+  - family-names: "levine"
+    given-names: "Dov"
+    orcid: "https://orcid.org/0000-0001-8241-8168"
+  doi: "10.1103/PhysRevX.9.011031"
+  journal: "Physical Review X"
+  # month: 
+  start: 220601 # First page number
+  # end: 10 # Last page number
+  title: "Quantifying Hidden Order out of Equilibrium"
+  # issue:
+  volume: 9
+  year: 2019
